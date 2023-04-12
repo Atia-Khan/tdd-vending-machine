@@ -15,7 +15,7 @@ module.exports = class Machine {
   selectItem(itemCode){
     let objectItem;
     let itemNotFound = true;
-    
+
     this.items.forEach(value=>{
       if(value.code === itemCode){
         objectItem = value;
@@ -28,6 +28,35 @@ module.exports = class Machine {
     }
     else if(objectItem.price > this.amount){
       return `Your deposit is insufficient.  Please add Rs ${objectItem.price-this.amount} for this item`
+    }
+    else if(objectItem.price < this.amount){
+
+      this.amount -= objectItem.price;
+
+      console.log(this.amount);
+
+      const acceptedBill = [10, 20, 50, 100, 500];
+
+      const bill = {
+        item : objectItem.itemName,
+        change : []
+      };
+      
+
+      for (let index = acceptedBill.length - 1; index >= 0; index--) {
+        const element = acceptedBill[index];
+
+        if(this.amount >= element){
+          bill.change.push(element);
+          this.amount -= element;
+        }
+        
+      }
+
+      console.log(bill);
+
+      return bill;
+
     }
     
   }
