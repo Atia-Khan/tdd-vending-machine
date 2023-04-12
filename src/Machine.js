@@ -14,8 +14,8 @@ module.exports = class Machine {
   // b4
   selectItem(itemCode){
     let objectItem;
-    
     let itemNotFound = true;
+    
     this.items.forEach(value=>{
       if(value.code === itemCode){
         objectItem = value;
@@ -23,10 +23,11 @@ module.exports = class Machine {
       }
     })
 
-    console.log(objectItem);
-
     if(itemNotFound){
       return 'The item you selected is unavailable';
+    }
+    else if(objectItem.price > this.amount){
+      return `Your deposit is insufficient.  Please add Rs ${objectItem.price-this.amount} for this item`
     }
     
   }
