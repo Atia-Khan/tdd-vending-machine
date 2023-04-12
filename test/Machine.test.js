@@ -118,4 +118,20 @@ describe("the vending machine", () => {
     expect(`Your deposit is insufficient.  Please add Rs ${70-amountDeposit} for this item`).toEqual(receivedItem);
   });
 
+
+  // 6th test case
+  it(' I want to receive change', () => {
+    // setup
+    const machine = new Machine();
+    const amountDeposit = 100;
+    const itemCode = 'b3';
+
+    // exercise
+    machine.deposit(amountDeposit);
+    const receivedItem = machine.selectItem(itemCode);
+
+    // assert
+    expect({item: 'mints', change: [20, 10]}).toEqual(receivedItem);
+  });
+
 });
