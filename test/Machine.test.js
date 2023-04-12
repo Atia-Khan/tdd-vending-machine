@@ -149,3 +149,20 @@ it('should refund my money when I push the cancel button', () => {
   // assert
   expect(expected).toEqual(actual);
 });
+// 8 test
+it("should not dispense item and display message when unable to return proper change", () => {
+  // setup
+  const machine = new Machine();
+  const amountDeposit = 20;
+  const itemCode = "b2";
+
+  // exercise
+  machine.deposit(amountDeposit);
+  const actual = machine.selectItem(itemCode);
+
+  // assert
+  expect(actual).toEqual({ 
+    item: "chocolate", 
+    change: [100, 50] 
+  });
+});
