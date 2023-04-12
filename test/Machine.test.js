@@ -135,3 +135,17 @@ describe("the vending machine", () => {
   });
 
 });
+// 7 test 
+it('should refund my money when I push the cancel button', () => {
+  // setup
+  const machine = new Machine();
+  const depositAmount = 100;
+  const expected = { change: [100] };
+
+  // exercise
+  machine.deposit(depositAmount);
+  const actual = machine.cancel();
+
+  // assert
+  expect(expected).toEqual(actual);
+});
