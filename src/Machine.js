@@ -1,11 +1,34 @@
 module.exports = class Machine {
   constructor() {
-    this.items = [{ crisps: 100 }, { chocolate: 350 }, { mints: 70 }];
+    this.items = [
+      { itemName: 'crisps', price: 100, code: 'b1' },
+      { itemName: 'chocolate', price: 350, code: 'b2' },
+      { itemName: 'mints', price: 70, code: 'b3' }];
     this.amount = 0;
   }
 
   seeSelections() {
     return this.items;
+  }
+
+  // b4
+  selectItem(itemCode){
+    let objectItem;
+    
+    let itemNotFound = true;
+    this.items.forEach(value=>{
+      if(value.code === itemCode){
+        objectItem = value;
+        itemNotFound = false;
+      }
+    })
+
+    console.log(objectItem);
+
+    if(itemNotFound){
+      return 'The item you selected is unavailable';
+    }
+    
   }
 
 
