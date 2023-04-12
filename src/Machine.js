@@ -72,7 +72,11 @@ module.exports = class Machine {
         return 'We accept bills in these amounts: 10, 20, 50, 100, 500'
     }
 }
-
+cancel() {
+    const refundedAmount = this.amount;
+    this.amount = 0;
+    return { change: [refundedAmount] };
+  }
   // deposit(amount) {
 
   //   const acceptedAmounts = [10, 20, 50, 100, 500];
