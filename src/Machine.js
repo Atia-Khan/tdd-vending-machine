@@ -12,53 +12,58 @@ module.exports = class Machine {
   }
 
   // b4
-  selectItem(itemCode){
+  selectItem(itemCode) {
     let objectItem;
     let itemNotFound = true;
 
-    this.items.forEach(value=>{
-      if(value.code === itemCode){
+    this.items.forEach((value) => {
+      if (value.code === itemCode) {
         objectItem = value;
         itemNotFound = false;
       }
-    })
+    });
 
-    if(itemNotFound){
-      return 'The item you selected is unavailable';
-    }
-    else if(objectItem.price > this.amount){
-      return `Your deposit is insufficient.  Please add Rs ${objectItem.price-this.amount} for this item`
-    }
-    else if(objectItem.price < this.amount){
-
-      this.amount -= objectItem.price;
-
-      console.log(this.amount);
-
+    if (itemNotFound) {
+      return "The item you selected is unavailable";
+    } else if (objectItem.price > this.amount) {
+      return `Your deposit is insufficient.  Please add Rs ${
+        objectItem.price - this.amount
+      } for this item`;
+    } else if (objectItem.price < this.amount) {
       const acceptedBill = [10, 20, 50, 100, 500];
 
-      const bill = {
-        item : objectItem.itemName,
-        change : []
-      };
-      
-
-      for (let index = acceptedBill.length - 1; index >= 0; index--) {
-        const element = acceptedBill[index];
-
-        if(this.amount >= element){
-          bill.change.push(element);
-          this.amount -= element;
+      // Check if change can be returned
+      const changeRequired = this.amount - objectItem.price;
+      let changePossible = false;
+      for (let i = 0; i < acceptedBill.length; i++) {
+        if (acceptedBill[i] <= changeRequired) {
+          changePossible = true;
+          break;
         }
-        
       }
 
-      console.log(bill);
+      if (!changePossible) {
+        return "Cannot return proper change.  Please choose another item or cancel the transaction";
+      } else {
+        this.amount -= objectItem.price;
 
-      return bill;
+        const bill = {
+          item: objectItem.itemName,
+          change: [],
+        };
 
+        for (let index = acceptedBill.length - 1; index >= 0; index--) {
+          const element = acceptedBill[index];
+
+          if (this.amount >= element) {
+            bill.change.push(element);
+            this.amount -= element;
+          }
+        }
+
+        return bill;
+      }
     }
-    
   }
 
 

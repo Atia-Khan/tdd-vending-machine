@@ -153,7 +153,7 @@ it('should refund my money when I push the cancel button', () => {
 it("should not dispense item and display message when unable to return proper change", () => {
   // setup
   const machine = new Machine();
-  const amountDeposit = 20;
+  const amountDeposit = 500;
   const itemCode = "b2";
 
   // exercise
