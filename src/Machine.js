@@ -1,11 +1,13 @@
 module.exports = class Machine {
-    constructor() {
-        this.items = [];
+  constructor() {
+    this.items = [
+    {'crisps': 100}, 
+    {'chocolate': 350}, 
+    {'mints': 70}
+    ];
+  }
 
-    }
-
-
-    seeSelections() {
-        
-    }
+  seeSelections() {
+    return this.items;
+  }
 };
