@@ -7,7 +7,10 @@ describe("the vending machine", () => {
     // setup
     const machine = new Machine();
 
-    const expected = [{ crisps: 100 }, { chocolate: 350 }, { mints: 70 }];
+    const expected = [
+      { itemName: 'crisps', price: 100, code: 'b1' },
+      { itemName: 'chocolate', price: 350, code: 'b2' },
+      { itemName: 'mints', price: 70, code: 'b3' }];
 
     // exercise
     const actual = machine.seeSelections();
@@ -85,4 +88,17 @@ it('I want to add additional money', () => {
 
   // assert
   expect(`You have deposited Rs ${previousDeposit + curentDeposit}`).toEqual(actualAmount);
+});
+
+// 4th test case
+it('I want to see a message if my item is unavailable', () => {
+  // setup
+  const machine = new Machine();
+  const itemCode = 'b4';
+
+  // exercise
+  const receivedItem = machine.selectItem(itemCode);
+
+  // assert
+  expect(`The item you selected is unavailable`).toEqual(receivedItem);
 });
